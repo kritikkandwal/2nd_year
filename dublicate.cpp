@@ -1,41 +1,24 @@
 #include <iostream>
-
+#include <unordered_map>
 using namespace std;
 
-int main()
-{
-    int arr[50], n;
-    cout << "How many elements?" << endl;
-    cin >> n;
-    cout << "Enter the elements:" << endl;
-    
-    // Input array elements
-    for(int i = 0; i < n; i++)
-    {
-        cin >> arr[i];
+int main() {
+    int arr[] = {1, 2, 3, 4, 5, 2, 3, 6};
+    int n = sizeof(arr) / sizeof(arr[0]);
+
+    unordered_map<int, int> freq;
+
+    // Count occurrences of each element
+    for (int i = 0; i < n; i++) {
+        freq[arr[i]]++;
     }
-    
-    // Removing duplicates
-    for(int i = 0; i < n; i++)
-    {
-        for(int j = i + 1; j < n; j++)
-        {
-            if(arr[i] == arr[j])
-            {
-                // Shift elements to the left
-                for(int k = j; k < n - 1; k++)
-                {
-                    arr[k] = arr[k + 1];
-                }
-                n--;  // Reduce array size
-                j--;  // Decrement j to recheck the new element at position j
-            }
+
+    // Print duplicate elements
+    cout << "Duplicate elements: ";
+    for (auto it : freq) {
+        if (it.second > 1) { // If count > 1, it's a duplicate
+            cout << it.first << " ";
         }
-    }
-    cout << "Array after removing duplicates: ";
-    for(int i = 0; i < n; i++)
-    {
-        cout << arr[i] << " ";
     }
 
     return 0;
